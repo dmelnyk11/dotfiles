@@ -3,8 +3,6 @@
 set -euo pipefail
 
 PACKAGES=(
-  openssh
-  github-cli
   zsh
   tmux
   neovim
