@@ -12,6 +12,7 @@ echo "[KDE Settings] Applying KDE Plasma 6 settings..."
 # --- Theme, Look & Feel, Default Apps (kdeglobals) ---
 kwriteconfig6 --file kdeglobals --group KDE --key LookAndFeelPackage "org.kde.breezedark.desktop"
 kwriteconfig6 --file kdeglobals --group KDE --key AutomaticLookAndFeel true
+kwriteconfig6 --file kdeglobals --group KDE --key AnimationDurationFactor 0
 kwriteconfig6 --file kdeglobals --group General --key BrowserApplication "google-chrome.desktop"
 kwriteconfig6 --file kdeglobals --group General --key TerminalApplication "ghostty"
 kwriteconfig6 --file kdeglobals --group General --key TerminalService "com.mitchellh.ghostty.desktop"
@@ -68,7 +69,6 @@ import subprocess
 
 META = 0x10000000
 ALT = 0x08000000
-SHIFT = 0x02000000
 KEY_F1 = 0x01000030
 KEY_F2 = 0x01000031
 KEY_SPACE = 0x20
@@ -91,7 +91,7 @@ for i in range(1, 6):
 
 symbols = ["!", "@", "#", "$", "%"]
 for i, sym in enumerate(symbols, 1):
-    set_shortcut("kwin", "KWin", f"Window to Desktop {i}", f"Window to Desktop {i}", [META | SHIFT | ord(sym)])
+    set_shortcut("kwin", "KWin", f"Window to Desktop {i}", f"Window to Desktop {i}", [META | ord(sym)])
 
 set_shortcut("plasmashell", "Plasma", "activate application launcher", "Activate Application Launcher", [META | KEY_SPACE, ALT | KEY_F1])
 set_shortcut("org.kde.krunner.desktop", "KRunner", "_launch", "KRunner", [ALT | KEY_SPACE, KEY_SEARCH, ALT | KEY_F2])
