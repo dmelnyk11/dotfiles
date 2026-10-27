@@ -9,24 +9,6 @@ add_to_path() {
 export EDITOR="nvim"
 export VISUAL="nvim"
 
-# Ensure ~/.local/bin is in PATH
+# Ensure user binaries are in PATH
 add_to_path "$HOME/.local/bin"
-
-# --- Pixi (42 School / Custom path) ---
-export PIXI_HOME="/sgoinfre/students/$USER/pkg/pixi"
-export PIXI_CACHE_DIR="/tmp/$USER/pixi-cache"
-if [[ -d "$PIXI_HOME" ]]; then
-  add_to_path "$PIXI_HOME/bin"
-else
-  unset PIXI_HOME
-  unset PIXI_CACHE_DIR
-fi
-
-# --- Rust / Cargo ---
-if [[ -d "/sgoinfre/students/$USER/pkg/cargo" ]]; then
-  export CARGO_HOME="/sgoinfre/students/$USER/pkg/cargo"
-  export RUSTUP_HOME="/sgoinfre/students/$USER/pkg/rustup"
-  add_to_path "$CARGO_HOME/bin"
-elif [[ -d "$HOME/.cargo/bin" ]]; then
-  add_to_path "$HOME/.cargo/bin"
-fi
+add_to_path "$HOME/.cargo/bin"
