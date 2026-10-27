@@ -1,0 +1,50 @@
+name: transmission-vpn
+
+services:
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - VPN_SERVICE_PROVIDER=protonvpn
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${PROTON_PRIVATE_KEY}
+      - SERVER_COUNTRIES=${SERVER_COUNTRIES:-United Kingdom}
+      - PORT_FORWARD_ONLY=on
+      - VPN_PORT_FORWARDING=on
+      - HTTP_CONTROL_SERVER_ADDRESS=:8000
+    ports:
+      - 9091:9091
+    restart: unless-stopped
+
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    network_mode: "service:gluetun"
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-Europe/London}
+    volumes:
+      - ${CONFIG_PATH:-./config}:/config
+      - ${DOWNLOADS_PATH:-~/Downloads/Torrents}:/downloads
+    restart: unless-stopped
+
+  gluetrans:
+    image: miklosbagi/gluetrans:latest
+    container_name: gluetrans
+    network_mode: "service:gluetun"
+    environment:
+      - GLUETUN_CONTROL_ENDPOINT=http://localhost:8000
+      - GLUETUN_CONTROL_API_KEY=dummy
+      - GLUETUN_HEALTH_ENDPOINT=http://localhost:8080
+      - TRANSMISSION_ENDPOINT=http://localhost:9091/transmission/rpc
+      - TRANSMISSION_USER=""
+      - TRANSMISSION_PASS=""
+    depends_on:
+      - gluetun
+      - transmission
+    restart: unless-stopped

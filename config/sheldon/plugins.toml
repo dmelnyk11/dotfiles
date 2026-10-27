@@ -1,0 +1,33 @@
+# Sheldon configuration file
+# Docs: https://sheldon.cli.rs
+
+shell = "zsh"
+
+[templates]
+fpath = 'fpath=( "{{ dir }}/src" $fpath )'
+
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+apply = ["fpath"]
+
+[plugins.compinit]
+inline = """
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+  compinit -u
+else
+  compinit -C -u
+fi
+"""
+
+[plugins.ohmyzsh-git]
+github = "ohmyzsh/ohmyzsh"
+dir = "plugins/git"
+use = ["git.plugin.zsh"]
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+use = ["{{ name }}.zsh"]
+
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"

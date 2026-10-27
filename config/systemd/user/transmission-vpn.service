@@ -1,0 +1,14 @@
+[Unit]
+Description=Transmission BitTorrent Client over ProtonVPN (Gluetun)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/.config/transmission-vpn
+ExecStart=/usr/bin/docker compose up
+ExecStop=/usr/bin/docker compose down
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=default.target

@@ -1,14 +1,10 @@
 #!/bin/zsh
 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
+# Fast exit for AI agents / non-UI automation
 if [[ -n "$GEMINI_CLI" || -n "$ANTIGRAVITY_AGENT" ]]; then
-    export PS1='$ '
-    unset PROMPT_COMMAND
-    # Only source essential paths, avoid fancy UI tools
-    return
+  export PS1='$ '
+  unset PROMPT_COMMAND
+  return
 fi
 
 function source_if_exists() {
@@ -17,19 +13,7 @@ function source_if_exists() {
   fi
 }
 
-source_if_exists "$HOME/.p10k.zsh"
-# source_if_exists "$HOME/.brewconfig.zsh"
 source_if_exists "$HOME/.zsh/10-options.zsh"
-source_if_exists "$HOME/.zsh/20-oh-my.zsh"
+source_if_exists "$HOME/.zsh/20-plugins.zsh"
 source_if_exists "$HOME/.zsh/30-alias.zsh"
 source_if_exists "$HOME/.zsh/40-interactive.zsh"
-
-
-# --- 42 School Specific ---
-if [[ "$HOST" == *"42london"* ]]; then
-#   source_if_exists "$HOME/.zsh/42-school.zsh"
-fi
-
-if command -v zoxide &> /dev/null; then
-  eval "$(zoxide init zsh)"
-fi

@@ -1,0 +1,23 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Transmission (VPN)
+GenericName=BitTorrent Client
+Comment=Download and share files over BitTorrent safely under ProtonVPN
+Exec=/usr/bin/env bash -c 'exec "$HOME/dotfiles/scripts/transmission-vpn-launch.sh" --open'
+Icon=transmission-qt
+Terminal=false
+Categories=Network;FileTransfer;P2P;
+Actions=Start;Stop;OpenUI;
+
+[Desktop Action Start]
+Name=Start VPN & Transmission
+Exec=/usr/bin/env bash -c 'exec "$HOME/dotfiles/scripts/transmission-vpn-launch.sh" --start'
+
+[Desktop Action Stop]
+Name=Stop VPN & Transmission
+Exec=/usr/bin/env bash -c 'exec "$HOME/dotfiles/scripts/transmission-vpn-launch.sh" --stop'
+
+[Desktop Action OpenUI]
+Name=Open Transmission Web UI
+Exec=/usr/bin/env bash -c 'exec "$HOME/dotfiles/scripts/transmission-vpn-launch.sh" --open'

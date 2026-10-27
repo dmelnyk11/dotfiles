@@ -1,0 +1,35 @@
+[user]
+	name = Dmytro Melnyk
+	email = 179873458+demm05@users.noreply.github.com
+
+[init]
+	defaultBranch = main
+
+[core]
+	editor = nvim
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	dark = true
+	side-by-side = true
+	line-numbers = true
+	syntax-theme = gruvbox-dark
+
+[merge]
+	conflictstyle = zdiff3
+
+[diff]
+	colorMoved = default
+
+[pull]
+	rebase = true
+
+[push]
+	autoSetupRemote = true
+
+[rerere]
+	enabled = true

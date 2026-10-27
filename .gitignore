@@ -1,2 +1,7 @@
 tmux/tpm
-tmux/dot-tmux/plugins
+tmux/dot-tmux/plugins/*
+!tmux/dot-tmux/plugins/tpm
+config/transmission-vpn/.env
+config/transmission-vpn/config/
+local/share/applications/mimeapps.list
+local/share/applications/mimeinfo.cache

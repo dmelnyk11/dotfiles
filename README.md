@@ -1,32 +1,51 @@
 # Dotfiles
 
-My personal dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal dotfiles managed declaratively with [Dotbot](https://github.com/anishathalye/dotbot).
 
 ## Quick Start
 
 ```bash
-./install.py
+./install
+```
+
+To install all recommended modern CLI tools on Arch Linux:
+
+```bash
+./scripts/install_packages.sh --install
 ```
 
 ## Structure
 
-- `zsh/`: Zsh configuration, includes Oh My Zsh and Powerlevel10k as submodules.
-- `tmux/`: Tmux configuration, includes TPM (Tmux Plugin Manager) as a submodule.
-- `config/`: Application-specific configurations (NVIM, Kitty, Ghostty).
-- `scripts/`: Misc setup scripts.
+- `install` & `install.conf.yaml`: Dotbot bootstrap script and declarative link/shell configuration.
+- `zsh/`: Modular Zsh configuration (`10-options.zsh`, `20-plugins.zsh`, `30-alias.zsh`, `40-interactive.zsh`).
+- `tmux/`: Tmux configuration with TPM submodule.
+- `config/`: Application configurations:
+  - `atuin/`: Atuin SQLite shell history configuration.
+  - `ghostty/` & `kitty/`: Terminal emulators.
+  - `git/`: Git configuration with `delta` side-by-side syntax diffs.
+  - `nvim/`: Neovim configuration (submodule).
+  - `sheldon/`: Fast Rust-based Zsh plugin manager (`plugins.toml`).
+  - `starship.toml`: Cross-shell prompt configuration.
+  - `yazi/`: Terminal file manager configuration.
+  - `transmission-vpn/` & `systemd/`: Gluetun + Transmission Docker Compose service.
+- `scripts/`:
+  - `kde_settings.sh`: Declarative KDE Plasma 6 settings and shortcuts using `kwriteconfig6`.
+  - `install_packages.sh`: Package checker & installer for Arch Linux.
+  - `setup_transmission_vpn.sh` & `transmission-vpn-launch.sh`: Transmission VPN helpers.
 
-## Key Features
+## Modern CLI Stack
 
-- **Python Setup Script**: Modular, handles backups, and manages submodules.
-- **GNU Stow**: Easily symlink configurations to your home directory.
-- **Zsh**: Optimized options, aliases, and plugin management via `ZSH_CUSTOM`.
-- **Submodules**: External plugins and themes are tracked as git submodules for better version control.
-
-## Requirements
-
-- `python3`
-- `stow`
-- `git`
-- `zsh`
-- `lsd` (optional, for icons in ls)
-- `zoxide` (optional, for smarter navigation)
+| Tool | Purpose |
+| :--- | :--- |
+| **Sheldon** | Fast, declarative Zsh plugin manager |
+| **Starship** | Fast, customizable Rust prompt |
+| **Atuin** | Magical shell history with SQLite search |
+| **eza** | Modern `ls` replacement with icons and Git status |
+| **bat** | `cat` clone with syntax highlighting and Git integration |
+| **fd** & **ripgrep** | Fast alternatives to `find` and `grep` (integrated with `fzf`) |
+| **zoxide** | Smarter `cd` command |
+| **delta** | Syntax-highlighting pager for `git diff` |
+| **ouch** | Painless compression and decompression (`extract` / `compress`) |
+| **yazi** | Blazing fast terminal file manager (`y` wrapper cds on exit) |
+| **lazygit** | Terminal UI for Git (`lg`) |
+| **btop** & **fastfetch** | System resource monitor and system info |

@@ -1,0 +1,65 @@
+- defaults:
+    link:
+      relink: true
+      create: true
+      force: true
+
+- clean:
+    ~/:
+      force: false
+    ~/.config:
+      force: false
+
+- create:
+    - ~/Downloads/Torrents
+    - ~/.config/transmission-vpn/config
+    - ~/.config/systemd/user
+    - ~/.local/share/icons
+    - ~/.local/share/applications
+    - ~/.local/bin
+
+- link:
+    # Zsh
+    ~/.zshenv: zsh/dot-zshenv
+    ~/.zshrc: zsh/dot-zshrc
+    ~/.zsh: zsh/dot-zsh
+
+    # Tmux
+    ~/.tmux.conf: tmux/dot-tmux.conf
+    ~/.tmux: tmux/dot-tmux
+
+    # Terminal Emulators
+    ~/.config/ghostty: config/ghostty
+    ~/.config/kitty: config/kitty
+
+    # Editor & CLI Tools
+    ~/.config/nvim: config/nvim
+    ~/.config/git: config/git
+    ~/.config/sheldon: config/sheldon
+    ~/.config/starship.toml: config/starship.toml
+    ~/.config/atuin: config/atuin
+    ~/.config/yazi: config/yazi
+
+    # Services & Desktop Entries
+    ~/.config/systemd/user/transmission-vpn.service: config/systemd/user/transmission-vpn.service
+    ~/.config/transmission-vpn/docker-compose.yml: config/transmission-vpn/docker-compose.yml
+    ~/.config/transmission-vpn/.env.example: config/transmission-vpn/.env.example
+    ~/.local/share/applications/transmission-vpn.desktop: local/share/applications/transmission-vpn.desktop
+
+- shell:
+    - command: git submodule update --init --recursive
+      description: Initializing git submodules
+    - command: chmod +x scripts/*.sh
+      description: Ensuring helper scripts are executable
+    - command: ./scripts/setup_transmission_vpn.sh
+      description: Configuring Transmission VPN service & desktop entry
+      stdout: true
+      stderr: true
+    - command: ./scripts/kde_settings.sh
+      description: Applying KDE Plasma 6 settings
+      stdout: true
+      stderr: true
+    - command: ./scripts/install_packages.sh
+      description: Checking recommended CLI packages
+      stdout: true
+      stderr: true
