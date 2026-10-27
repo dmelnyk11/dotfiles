@@ -36,8 +36,9 @@ if command -v qdbus6 &>/dev/null; then
   qdbus6 org.kde.KWin /VirtualDesktopManager org.freedesktop.DBus.Properties.Set org.kde.KWin.VirtualDesktopManager rows "$TARGET_ROWS" >/dev/null 2>&1 || true
 fi
 
-# --- KRunner (krunnerrc) ---
+# --- KRunner & Modifier-Only Meta Key (krunnerrc & kwinrc) ---
 kwriteconfig6 --file krunnerrc --group General --key FreeFloating true
+kwriteconfig6 --file kwinrc --group ModifierOnlyShortcuts --key Meta "org.kde.krunner,/App,,toggleDisplay"
 
 # --- Dolphin File Manager (dolphinrc) ---
 kwriteconfig6 --file dolphinrc --group MainWindow --key MenuBar "Disabled"
@@ -69,6 +70,7 @@ import subprocess
 
 META = 0x10000000
 ALT = 0x08000000
+KEY_META = 0x01000022
 KEY_F1 = 0x01000030
 KEY_F2 = 0x01000031
 KEY_SPACE = 0x20
@@ -94,7 +96,7 @@ for i, sym in enumerate(symbols, 1):
     set_shortcut("kwin", "KWin", f"Window to Desktop {i}", f"Window to Desktop {i}", [META | ord(sym)])
 
 set_shortcut("plasmashell", "Plasma", "activate application launcher", "Activate Application Launcher", [META | KEY_SPACE, ALT | KEY_F1])
-set_shortcut("org.kde.krunner.desktop", "KRunner", "_launch", "KRunner", [ALT | KEY_SPACE, KEY_SEARCH, ALT | KEY_F2])
+set_shortcut("org.kde.krunner.desktop", "KRunner", "_launch", "KRunner", [META | KEY_META, ALT | KEY_SPACE, KEY_SEARCH, ALT | KEY_F2])
 EOF
 fi
 
